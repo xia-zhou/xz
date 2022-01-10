@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.2</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.cydeer</groupId>
+    <artifactId>xz-mid-dependencies</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <xz-commons-base.version>1.0.0-SNAPSHOT</xz-commons-base.version>
+        <fastjson.version>1.2.70</fastjson.version>
+        <!--配置中心版本-->
+        <nacos.config.version>0.2.7</nacos.config.version>
+        <!--nacos版本号-->
+        <nacos.version>1.2.0</nacos.version>
+        <!--oss版本-->
+        <aliyun.sdk.oss.version>3.8.0</aliyun.sdk.oss.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cydeer</groupId>
+            <artifactId>common-base</artifactId>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+
+            <!--数立内部工具类-->
+            <dependency>
+                <groupId>com.cydeer</groupId>
+                <artifactId>common-base</artifactId>
+                <version>${xz-commons-base.version}</version>
+            </dependency>
+            <!--            <dependency>
+                            <groupId>com.shulidata.commons</groupId>
+                            <artifactId>did-client</artifactId>
+                            <version>${did.version}</version>
+                        </dependency>-->
+            <!--<dependency>
+                <groupId>com.shulidata.commons</groupId>
+                <artifactId>common-security-jwt</artifactId>
+                <version>${sl-commons-jwt.version}</version>
+            </dependency>-->
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun.sdk.oss.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-config-spring-boot-starter</artifactId>
+                <version>${nacos.config.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <distributionManagement>
+        <repository>
+            <id>rdc-releases</id>
+            <url>https://packages.aliyun.com/maven/repository/2176092-release-Msx4FI</url>
+        </repository>
+        <snapshotRepository>
+            <id>rdc-snapshots</id>
+            <url>https://packages.aliyun.com/maven/repository/2176092-snapshot-mPB765</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
