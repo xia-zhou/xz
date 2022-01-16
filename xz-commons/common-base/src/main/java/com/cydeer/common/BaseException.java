@@ -31,7 +31,7 @@ public final class BaseException extends RuntimeException {
     }
 
     /**
-     * 推荐使用，业务方缇娜家错误码枚举实现Code接口，保留异常原始信息
+     * 推荐使用，业务方提供错误码枚举实现Code接口，保留异常原始信息
      *
      * @param code  错误码
      * @param cause 异常原始信息

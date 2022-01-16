@@ -1,5 +1,6 @@
 package com.cydeer.common;
 
+import com.cydeer.common.util.LogUtils;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -74,15 +75,14 @@ public final class Result<T> {
     }
 
     /**
+     * 注意会记录业务异常日志
+     * <p>
      * 如果成功则获取业务数据，否则抛出业务异常
      *
      * @return 业务数据
      */
     public T getIfSuccess() {
-        if (isSuccess()) {
-            return data;
-        }
-        throw new BaseException(code, msg);
+        return getIfSuccess(true);
     }
 
     /**
@@ -95,8 +95,8 @@ public final class Result<T> {
         if (isSuccess()) {
             return data;
         }
-        if (logRecord && log.isWarnEnabled()) {
-            log.warn("请求结果业务异常,code:{},msg:{}", code, msg);
+        if (logRecord) {
+            LogUtils.error(log, "请求结果业务异常,code:{},msg:{}", code, msg);
         }
         throw new BaseException(code, msg);
     }
