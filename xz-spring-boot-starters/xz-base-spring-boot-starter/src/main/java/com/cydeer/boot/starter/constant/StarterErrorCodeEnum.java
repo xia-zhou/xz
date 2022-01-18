@@ -1,4 +1,4 @@
-package com.cydeer.boot.starter.util.http;
+package com.cydeer.boot.starter.constant;
 
 import com.cydeer.common.Code;
 import lombok.AllArgsConstructor;
@@ -8,11 +8,16 @@ import lombok.AllArgsConstructor;
  * @date 2022/1/16 10:42 下午
  */
 @AllArgsConstructor
-public enum HttpErrorCodeEnum implements Code {
+public enum StarterErrorCodeEnum implements Code {
     /**
      * IO异常
      */
-    IO_EXCEPTION("HTTP_IO_EXCEPTION", "IOException");
+    IO_EXCEPTION("HTTP_IO_EXCEPTION", "IOException"),
+
+    /**
+     * 缓存的key不是为空
+     */
+    CACHE_KEY_IS_NULL("CACHE_KEY_IS_NULL", "缓存key不能为空");
 
     private String code;
 
