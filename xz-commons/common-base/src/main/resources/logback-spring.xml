@@ -3,7 +3,7 @@
 <!--please pay attention that: file name should not be logback.xml，name it logback-spring.xml to use it in springboot framework-->
 <configuration>
 
-    <springProperty scope="context" name="logging.path" source="logging.path"/>
+    <springProperty scope="context" name="logging.file.path" source="logging.file.path"/>
     <springProperty scope="context" name="logging.level" source="logging.level.com.cydeer"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -18,10 +18,10 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>info</level>
         </filter>
-        <file>${logging.path}/app-access-param.log</file>
+        <file>${logging.file.path}/app-access-param.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名:按天回滚 daily -->
-            <FileNamePattern>${logging.path}/app-access-param.log.%d{yyyy-MM-dd}
+            <FileNamePattern>${logging.file.path}/app-access-param.log.%d{yyyy-MM-dd}
             </FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>7</MaxHistory>
@@ -39,10 +39,10 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>info</level>
         </filter>
-        <file>${logging.path}/app-default.log</file>
+        <file>${logging.file.path}/app-default.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名:按天回滚 daily -->
-            <FileNamePattern>${logging.path}/app-default.log.%d{yyyy-MM-dd}
+            <FileNamePattern>${logging.file.path}/app-default.log.%d{yyyy-MM-dd}
             </FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>7</MaxHistory>
@@ -65,10 +65,10 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <!-- 日志名称 -->
-        <file>${logging.path}/app-error.log</file>
+        <file>${logging.file.path}/app-error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名:按天回滚 daily -->
-            <FileNamePattern>${logging.path}/app-error.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <FileNamePattern>${logging.file.path}/app-error.log.%d{yyyy-MM-dd}</FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>7</MaxHistory>
         </rollingPolicy>
@@ -85,10 +85,10 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>info</level>
         </filter>
-        <file>${logging.path}/default.log</file>
+        <file>${logging.file.path}/default.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名:按天回滚 daily -->
-            <FileNamePattern>${logging.path}/default.log.%d{yyyy-MM-dd}
+            <FileNamePattern>${logging.file.path}/default.log.%d{yyyy-MM-dd}
             </FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>7</MaxHistory>
@@ -111,10 +111,10 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <!-- 日志名称 -->
-        <file>${logging.path}/error.log</file>
+        <file>${logging.file.path}/error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名:按天回滚 daily -->
-            <FileNamePattern>${logging.path}/error.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <FileNamePattern>${logging.file.path}/error.log.%d{yyyy-MM-dd}</FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>7</MaxHistory>
         </rollingPolicy>
@@ -133,10 +133,10 @@
             <level>info</level>
         </filter>
         <!-- 日志名称 -->
-        <file>${logging.path}/rms-monitor.log</file>
+        <file>${logging.file.path}/rms-monitor.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名:按天回滚 daily -->
-            <FileNamePattern>${logging.path}/rms-monitor.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <FileNamePattern>${logging.file.path}/rms-monitor.log.%d{yyyy-MM-dd}</FileNamePattern>
             <!--日志文件保留天数-->
             <MaxHistory>7</MaxHistory>
         </rollingPolicy>
@@ -155,10 +155,10 @@
             <level>info</level>
         </filter>
         <!-- 日志名称 -->
-        <file>${logging.path}/app-common-dal.log</file>
+        <file>${logging.file.path}/app-common-dal.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名:按天回滚 daily -->
-            <FileNamePattern>${logging.path}/app-common-dal.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <FileNamePattern>${logging.file.path}/app-common-dal.log.%d{yyyy-MM-dd}</FileNamePattern>
             <!--日志文件保留天数 -->
             <MaxHistory>7</MaxHistory>
         </rollingPolicy>
