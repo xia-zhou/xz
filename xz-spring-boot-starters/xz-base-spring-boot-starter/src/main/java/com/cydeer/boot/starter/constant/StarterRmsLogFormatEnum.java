@@ -15,7 +15,7 @@ public enum StarterRmsLogFormatEnum implements RmsKeyFormat {
     /**
      * mvc层统一异常处理
      */
-    MVC_BASE_EXCEPTION("请求统一异常处理-BaseException,requestUrl:%s,userKey:%s,code:%s,msg:%s,ip:%s"),
+    MVC_BASE_EXCEPTION("请求统一异常处理-CommonException,requestUrl:%s,userKey:%s,code:%s,msg:%s,ip:%s"),
 
     /**
      * 参数绑定异常

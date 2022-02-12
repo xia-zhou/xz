@@ -12,12 +12,12 @@ public enum CommonErrorCode implements Code {
     /**
      * 系统异常
      */
-    SYSTEM_ERROR("-1", "系统异常，请稍后重试"),
+    SYSTEM_ERROR("B00001", "系统异常，请稍后重试"),
 
     /**
      * 参数异常
      */
-    PARAM_ERROR("-1", "参数异常，请检查参数是否正确"),
+    PARAM_ERROR("A00001", "参数异常，请检查参数是否正确"),
     ;
 
     private String code;

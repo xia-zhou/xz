@@ -2,7 +2,7 @@ package com.cydeer.boot.starter.web.support;
 
 import com.cydeer.boot.starter.constant.StarterRmsLogFormatEnum;
 import com.cydeer.boot.starter.web.user.UserContext;
-import com.cydeer.common.BaseException;
+import com.cydeer.common.CommonException;
 import com.cydeer.common.Result;
 import com.cydeer.common.util.IpUtils;
 import com.cydeer.common.util.LogUtils;
@@ -30,17 +30,17 @@ public class ExceptionAdvice {
     /**
      * 自定义异常处理
      *
-     * @param request       请求参数
-     * @param baseException 业务异常
+     * @param request         请求参数
+     * @param commonException 业务异常
      * @return 请求结果
      */
     @ResponseBody
-    @ExceptionHandler(value = BaseException.class)
-    public Result<Object> baseExceptionHandler(HttpServletRequest request, BaseException baseException) {
+    @ExceptionHandler(value = CommonException.class)
+    public Result<Object> commonExceptionHandler(HttpServletRequest request, CommonException commonException) {
         LogUtils.error(log, LogRmsKey.of(StarterRmsLogFormatEnum.MVC_BASE_EXCEPTION, request.getRequestURI(),
-                                         UserContext.getKey(), baseException.getCode(), baseException.getMsg(),
+                                         UserContext.getKey(), commonException.getCode(), commonException.getMsg(),
                                          IpUtils.getIpFromServletRequest(request)));
-        return new Result<>(baseException.getCode(), baseException.getMsg());
+        return new Result<>(commonException.getCode(), commonException.getMsg());
     }
 
     /**

@@ -1,7 +1,7 @@
 package com.cydeer.common.util;
 
-import com.cydeer.common.BaseException;
 import com.cydeer.common.Code;
+import com.cydeer.common.CommonException;
 
 import java.util.Collection;
 import java.util.Map;
@@ -10,7 +10,7 @@ import java.util.Map;
  * 不满足断言都会通过抛出业务异常的的方式结束程序的执行
  *
  * @author song.z
- * @see com.cydeer.common.BaseException
+ * @see CommonException
  */
 public final class AssertUtils {
 
@@ -34,7 +34,7 @@ public final class AssertUtils {
      */
     public static void isNotNull(Object object, String code, String msg) {
         if (object == null) {
-            throw new BaseException(code, msg);
+            throw new CommonException(code, msg);
         }
     }
 
@@ -60,7 +60,7 @@ public final class AssertUtils {
         if (str != null && !str.isEmpty() && containsText(str)) {
             return;
         }
-        throw new BaseException(code, msg);
+        throw new CommonException(code, msg);
     }
 
 
@@ -95,7 +95,7 @@ public final class AssertUtils {
      */
     public static void isNotEmpty(Collection<?> c, String code, String msg) {
         if (c == null || c.size() == 0) {
-            throw new BaseException(code, msg);
+            throw new CommonException(code, msg);
         }
     }
 
@@ -120,7 +120,7 @@ public final class AssertUtils {
      */
     public static void isNotEmpty(Map<?, ?> m, String code, String msg) {
         if (m == null || m.isEmpty()) {
-            throw new BaseException(code, msg);
+            throw new CommonException(code, msg);
         }
     }
 

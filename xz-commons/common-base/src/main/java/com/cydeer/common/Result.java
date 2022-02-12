@@ -21,7 +21,7 @@ public final class Result<T> {
     /**
      * 成功返回的状态码
      */
-    private final static String SUCCESS_CODE = "0";
+    private final static String SUCCESS_CODE = "00000";
 
     /**
      * 空字符串
@@ -50,7 +50,7 @@ public final class Result<T> {
      */
     public Result(T data) {
         this.code = SUCCESS_CODE;
-        this.msg = EMPTY_STRING;
+        this.msg = null;
         this.data = data;
     }
 
@@ -81,8 +81,8 @@ public final class Result<T> {
      *
      * @return 业务数据
      */
-    public T getIfSuccess() {
-        return getIfSuccess(true);
+    public T fetchDataIfSuccess() {
+        return fetchDataIfSuccess(true);
     }
 
     /**
@@ -91,13 +91,13 @@ public final class Result<T> {
      * @param logRecord 是否记录日志
      * @return 业务数据
      */
-    public T getIfSuccess(boolean logRecord) {
+    public T fetchDataIfSuccess(boolean logRecord) {
         if (isSuccess()) {
             return data;
         }
         if (logRecord) {
             LogUtils.error(log, "请求结果业务异常,code:{},msg:{}", code, msg);
         }
-        throw new BaseException(code, msg);
+        throw new CommonException(code, msg);
     }
 }

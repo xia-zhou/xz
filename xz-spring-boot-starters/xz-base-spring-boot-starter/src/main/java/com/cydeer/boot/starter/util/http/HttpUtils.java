@@ -2,7 +2,7 @@ package com.cydeer.boot.starter.util.http;
 
 import com.cydeer.boot.starter.config.HttpClientAutoConfiguration;
 import com.cydeer.boot.starter.constant.StarterErrorCodeEnum;
-import com.cydeer.common.BaseException;
+import com.cydeer.common.CommonException;
 import com.cydeer.common.util.LogUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.*;
@@ -161,7 +161,7 @@ public class HttpUtils {
                     return EntityUtils.toString(resp.getEntity(), respCharset);
                 } catch (IOException e) {
                     LogUtils.info(log, "请求IO异常", e);
-                    throw new BaseException(StarterErrorCodeEnum.IO_EXCEPTION, e);
+                    throw new CommonException(StarterErrorCodeEnum.IO_EXCEPTION, e);
                 }
             });
         }
@@ -176,7 +176,7 @@ public class HttpUtils {
                     return EntityUtils.toByteArray(resp.getEntity());
                 } catch (IOException e) {
                     LogUtils.info(log, "请求IO异常", e);
-                    throw new BaseException(StarterErrorCodeEnum.IO_EXCEPTION, e);
+                    throw new CommonException(StarterErrorCodeEnum.IO_EXCEPTION, e);
                 }
             });
         }
@@ -192,7 +192,7 @@ public class HttpUtils {
                 return result.apply(response);
             } catch (IOException e) {
                 LogUtils.info(log, "请求IO异常", e);
-                throw new BaseException(StarterErrorCodeEnum.IO_EXCEPTION, e);
+                throw new CommonException(StarterErrorCodeEnum.IO_EXCEPTION, e);
             }
         }
 

@@ -7,7 +7,7 @@ import lombok.Getter;
  * @date 2022/1/9 4:59 下午
  */
 @Getter
-public final class BaseException extends RuntimeException {
+public final class CommonException extends RuntimeException {
 
     /**
      * 业务异常错误吗
@@ -24,7 +24,7 @@ public final class BaseException extends RuntimeException {
      *
      * @param code 错误码
      */
-    public BaseException(Code code) {
+    public CommonException(Code code) {
         super(code.getMsg());
         this.code = code.getCode();
         this.msg = code.getMsg();
@@ -36,7 +36,7 @@ public final class BaseException extends RuntimeException {
      * @param code  错误码
      * @param cause 异常原始信息
      */
-    public BaseException(Code code, Throwable cause) {
+    public CommonException(Code code, Throwable cause) {
         super(code.getMsg(), cause);
         this.code = code.getCode();
         this.msg = code.getMsg();
@@ -49,7 +49,7 @@ public final class BaseException extends RuntimeException {
      * @param code 错误码
      * @param msg  错误信息
      */
-    public BaseException(String code, String msg) {
+    public CommonException(String code, String msg) {
         super(msg);
         this.code = code;
         this.msg = msg;
@@ -62,7 +62,7 @@ public final class BaseException extends RuntimeException {
      * @param msg   错误信息
      * @param cause 异常原始信息
      */
-    public BaseException(String code, String msg, Throwable cause) {
+    public CommonException(String code, String msg, Throwable cause) {
         super(msg, cause);
         this.code = code;
         this.msg = msg;

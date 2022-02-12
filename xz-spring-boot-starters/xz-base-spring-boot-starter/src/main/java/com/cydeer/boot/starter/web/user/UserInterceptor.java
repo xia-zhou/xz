@@ -1,7 +1,7 @@
 package com.cydeer.boot.starter.web.user;
 
 import com.cydeer.boot.starter.constant.StarterRmsLogFormatEnum;
-import com.cydeer.common.BaseException;
+import com.cydeer.common.CommonException;
 import com.cydeer.common.util.IpUtils;
 import com.cydeer.common.util.LogUtils;
 import com.cydeer.common.util.constant.CommonErrorCode;
@@ -31,12 +31,12 @@ public class UserInterceptor implements HandlerInterceptor {
             IUser user = iUserProcessor.getFromRequest(request, response);
             UserContext.init(user);
             return true;
-        } catch (BaseException baseException) {
-            throw baseException;
+        } catch (CommonException commonException) {
+            throw commonException;
         } catch (Exception e) {
             LogUtils.error(log, LogRmsKey.of(StarterRmsLogFormatEnum.MVC_GET_USER_FROM_REQUEST_EXCEPTION,
                                              request.getRequestURL(), IpUtils.getIpFromServletRequest(request)), e);
-            throw new BaseException(CommonErrorCode.SYSTEM_ERROR);
+            throw new CommonException(CommonErrorCode.SYSTEM_ERROR);
         }
     }
 
