@@ -56,7 +56,7 @@ public class ExceptionAdvice {
         LogUtils.error(log, LogRmsKey.of(StarterRmsLogFormatEnum.MVC_BIND_EXCEPTION, request.getRequestURI(),
                                          UserContext.getKey(), IpUtils.getIpFromServletRequest(request)),
                        bindException);
-        return new Result<>(CommonErrorCode.PARAM_ERROR);
+        return new Result<>(CommonErrorCode.PARAM_ERROR.getCode(), CommonErrorCode.PARAM_ERROR.getMsg());
     }
 
     /**
@@ -74,7 +74,7 @@ public class ExceptionAdvice {
                        LogRmsKey.of(StarterRmsLogFormatEnum.MVC_MISSING_PARAMETER_EXCEPTION, request.getRequestURI(),
                                     UserContext.getKey(), IpUtils.getIpFromServletRequest(request)),
                        missingServletRequestParameterException);
-        return new Result<>(CommonErrorCode.PARAM_ERROR);
+        return new Result<>(CommonErrorCode.PARAM_ERROR.getCode(), CommonErrorCode.PARAM_ERROR.getMsg());
     }
 
     /**
@@ -91,7 +91,7 @@ public class ExceptionAdvice {
         LogUtils.error(log, LogRmsKey.of(StarterRmsLogFormatEnum.MVC_TYPE_MISMATCH_EXCEPTION, request.getRequestURI(),
                                          UserContext.getKey(), IpUtils.getIpFromServletRequest(request)),
                        typeMismatchException);
-        return new Result<>(CommonErrorCode.PARAM_ERROR);
+        return new Result<>(CommonErrorCode.PARAM_ERROR.getCode(), CommonErrorCode.PARAM_ERROR.getMsg());
     }
 
     /**
@@ -106,6 +106,6 @@ public class ExceptionAdvice {
     public Result<Object> errorHandler(HttpServletRequest request, Exception ex) {
         LogUtils.error(log, LogRmsKey.of(StarterRmsLogFormatEnum.MVC_UNKNOWN_EXCEPTION, request.getRequestURI(),
                                          UserContext.getKey(), IpUtils.getIpFromServletRequest(request)), ex);
-        return new Result<>(CommonErrorCode.PARAM_ERROR);
+        return new Result<>(CommonErrorCode.PARAM_ERROR.getCode(), CommonErrorCode.PARAM_ERROR.getMsg());
     }
 }

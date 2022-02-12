@@ -1,27 +1,23 @@
 package com.cydeer.boot.starter.web.support;
 
-import com.alibaba.fastjson.serializer.SerializeConfig;
-import com.alibaba.fastjson.serializer.ToStringSerializer;
-import com.alibaba.fastjson.support.config.FastJsonConfig;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.cydeer.boot.starter.properties.HttpConverterProperties;
+import com.cydeer.boot.starter.web.support.serializer.XzLocalDateTimeJsonDeserializer;
+import com.cydeer.boot.starter.web.support.serializer.XzLocalDateTimeSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collections;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -29,7 +25,14 @@ import java.util.List;
  * @date 2022/1/11 8:33 上午
  */
 @Configuration
+@EnableConfigurationProperties({HttpConverterProperties.class})
 public class MvcMessageConverterConfig implements WebMvcConfigurer {
+
+    private final HttpConverterProperties httpConverterProperties;
+
+    public MvcMessageConverterConfig(HttpConverterProperties httpConverterProperties) {
+        this.httpConverterProperties = httpConverterProperties;
+    }
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -39,35 +42,31 @@ public class MvcMessageConverterConfig implements WebMvcConfigurer {
                 ObjectMapper objectMapper = mappingJackson2HttpMessageConverter.getObjectMapper();
                 objectMapper.enable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
                 objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-
-                // 注册Long专用的json转换器
+                objectMapper.setSerializationInclusion(httpConverterProperties.getSerializationInclusion());
                 SimpleModule module = new SimpleModule();
                 //修复Long类型太长，丢失精度问题
-                module.addSerializer(Long.class, com.fasterxml.jackson.databind.ser.std.ToStringSerializer.instance);
-                module.addSerializer(Long.TYPE, com.fasterxml.jackson.databind.ser.std.ToStringSerializer.instance);
-                module.addSerializer(BigDecimal.class,
-                                     com.fasterxml.jackson.databind.ser.std.ToStringSerializer.instance);
-                module.addSerializer(BigInteger.class,
-                                     com.fasterxml.jackson.databind.ser.std.ToStringSerializer.instance);
-                module.addSerializer(LocalDateTime.class, LocalDateTimeSerializer.INSTANCE);
-                module.addSerializer(LocalDate.class, LocalDateSerializer.INSTANCE);
+                if (httpConverterProperties.getLong2StringEnable()) {
+                    module.addSerializer(Long.class, ToStringSerializer.instance);
+                    module.addSerializer(Long.TYPE, ToStringSerializer.instance);
+                }
+                if (httpConverterProperties.getBigDecimal2StringEnable()) {
+                    module.addSerializer(BigDecimal.class, ToStringSerializer.instance);
+                }
+                if (httpConverterProperties.getBigInteger2StringEnable()) {
+                    module.addSerializer(BigInteger.class, ToStringSerializer.instance);
+                }
+                if (httpConverterProperties.getLocalDateTime2TimestampEnable()) {
+                    module.addSerializer(LocalDateTime.class, new XzLocalDateTimeSerializer());
+                }
+                if (httpConverterProperties.getLocalDate2StringEnable()) {
+                    module.addSerializer(LocalDate.class, ToStringSerializer.instance);
+                }
+                if (httpConverterProperties.getLocalTime2StringEnable()) {
+                    module.addSerializer(LocalTime.class, ToStringSerializer.instance);
+                }
+                module.addDeserializer(LocalDateTime.class, new XzLocalDateTimeJsonDeserializer());
                 objectMapper.registerModule(module);
-
             }
         }
-        // ResponseBody不带引号返回, 所以StringHttpMessageConverter一定要放在FastJson前面先注册
-        converters.add(0, new StringHttpMessageConverter(StandardCharsets.UTF_8));
-        // 使用FastJson解析JSON数据
-        FastJsonHttpMessageConverter fastConvert = new FastJsonHttpMessageConverter();
-        FastJsonConfig fastJsonConfig = new FastJsonConfig();
-
-        SerializeConfig serializeConfig = fastJsonConfig.getSerializeConfig();
-        serializeConfig.put(BigInteger.class, ToStringSerializer.instance);
-        serializeConfig.put(Long.class, ToStringSerializer.instance);
-        serializeConfig.put(Long.TYPE, ToStringSerializer.instance);
-        fastConvert.setFastJsonConfig(fastJsonConfig);
-        //application/json;charset=UTF-8 交给FastJson处理
-        fastConvert.setSupportedMediaTypes(Collections.singletonList(MediaType.APPLICATION_JSON));
-        converters.add(1, fastConvert);
     }
 }
