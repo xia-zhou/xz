@@ -4,13 +4,12 @@ import com.cydeer.boot.starter.constant.StarterRmsLogFormatEnum;
 import com.cydeer.common.CommonException;
 import com.cydeer.common.util.IpUtils;
 import com.cydeer.common.util.LogUtils;
-import com.cydeer.common.util.constant.CommonErrorCode;
+import com.cydeer.common.util.constant.SystemErrorCodeEnum;
 import com.cydeer.common.util.log.LogRmsKey;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author song.z
@@ -26,7 +25,8 @@ public class UserInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws Exception {
         try {
             IUser user = iUserProcessor.getFromRequest(request, response);
             UserContext.init(user);
@@ -36,9 +36,10 @@ public class UserInterceptor implements HandlerInterceptor {
         } catch (Exception e) {
             LogUtils.error(log, LogRmsKey.of(StarterRmsLogFormatEnum.MVC_GET_USER_FROM_REQUEST_EXCEPTION,
                                              request.getRequestURL(), IpUtils.getIpFromServletRequest(request)), e);
-            throw new CommonException(CommonErrorCode.SYSTEM_ERROR);
+            throw new CommonException(SystemErrorCodeEnum.SYSTEM_ERROR);
         }
     }
+
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,

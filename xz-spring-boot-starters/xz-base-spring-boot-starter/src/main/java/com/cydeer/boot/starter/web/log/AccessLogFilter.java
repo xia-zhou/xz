@@ -2,6 +2,9 @@ package com.cydeer.boot.starter.web.log;
 
 import com.cydeer.boot.starter.web.user.UserContext;
 import com.cydeer.common.util.LogUtils;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
@@ -9,10 +12,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class AccessLogFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+            throws jakarta.servlet.ServletException, IOException {
         // 过滤掉一些不希望记录输入输出的url
         if (excludeUrls.contains(request.getRequestURI())) {
             filterChain.doFilter(request, response);

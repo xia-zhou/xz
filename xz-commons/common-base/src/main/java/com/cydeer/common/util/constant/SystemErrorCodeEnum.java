@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
  * @date 2022/1/11 8:03 下午
  */
 @AllArgsConstructor
-public enum CommonErrorCode implements Code {
+public enum SystemErrorCodeEnum implements Code {
     /**
      * 系统异常
      */
@@ -20,9 +20,9 @@ public enum CommonErrorCode implements Code {
     PARAM_ERROR("A00001", "参数异常，请检查参数是否正确"),
     ;
 
-    private String code;
+    private final String code;
 
-    private String msg;
+    private final String msg;
 
     @Override
     public String getCode() {

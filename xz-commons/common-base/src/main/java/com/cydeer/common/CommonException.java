@@ -12,12 +12,12 @@ public final class CommonException extends RuntimeException {
     /**
      * 业务异常错误吗
      */
-    private String code;
+    private final String code;
 
     /**
      * 业务异常信息
      */
-    private String msg;
+    private final String msg;
 
     /**
      * 推荐使用，业务方添加错误码枚举实现Code接口

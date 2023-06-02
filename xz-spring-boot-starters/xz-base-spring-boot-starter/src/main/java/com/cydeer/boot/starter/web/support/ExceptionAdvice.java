@@ -6,8 +6,9 @@ import com.cydeer.common.CommonException;
 import com.cydeer.common.Result;
 import com.cydeer.common.util.IpUtils;
 import com.cydeer.common.util.LogUtils;
-import com.cydeer.common.util.constant.CommonErrorCode;
+import com.cydeer.common.util.constant.SystemErrorCodeEnum;
 import com.cydeer.common.util.log.LogRmsKey;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.validation.BindException;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author song.z
@@ -56,7 +56,7 @@ public class ExceptionAdvice {
         LogUtils.error(log, LogRmsKey.of(StarterRmsLogFormatEnum.MVC_BIND_EXCEPTION, request.getRequestURI(),
                                          UserContext.getKey(), IpUtils.getIpFromServletRequest(request)),
                        bindException);
-        return new Result<>(CommonErrorCode.PARAM_ERROR.getCode(), CommonErrorCode.PARAM_ERROR.getMsg());
+        return new Result<>(SystemErrorCodeEnum.PARAM_ERROR.getCode(), SystemErrorCodeEnum.PARAM_ERROR.getMsg());
     }
 
     /**
@@ -74,7 +74,7 @@ public class ExceptionAdvice {
                        LogRmsKey.of(StarterRmsLogFormatEnum.MVC_MISSING_PARAMETER_EXCEPTION, request.getRequestURI(),
                                     UserContext.getKey(), IpUtils.getIpFromServletRequest(request)),
                        missingServletRequestParameterException);
-        return new Result<>(CommonErrorCode.PARAM_ERROR.getCode(), CommonErrorCode.PARAM_ERROR.getMsg());
+        return new Result<>(SystemErrorCodeEnum.PARAM_ERROR.getCode(), SystemErrorCodeEnum.PARAM_ERROR.getMsg());
     }
 
     /**
@@ -91,7 +91,7 @@ public class ExceptionAdvice {
         LogUtils.error(log, LogRmsKey.of(StarterRmsLogFormatEnum.MVC_TYPE_MISMATCH_EXCEPTION, request.getRequestURI(),
                                          UserContext.getKey(), IpUtils.getIpFromServletRequest(request)),
                        typeMismatchException);
-        return new Result<>(CommonErrorCode.PARAM_ERROR.getCode(), CommonErrorCode.PARAM_ERROR.getMsg());
+        return new Result<>(SystemErrorCodeEnum.PARAM_ERROR.getCode(), SystemErrorCodeEnum.PARAM_ERROR.getMsg());
     }
 
     /**
@@ -106,6 +106,6 @@ public class ExceptionAdvice {
     public Result<Object> errorHandler(HttpServletRequest request, Exception ex) {
         LogUtils.error(log, LogRmsKey.of(StarterRmsLogFormatEnum.MVC_UNKNOWN_EXCEPTION, request.getRequestURI(),
                                          UserContext.getKey(), IpUtils.getIpFromServletRequest(request)), ex);
-        return new Result<>(CommonErrorCode.PARAM_ERROR.getCode(), CommonErrorCode.PARAM_ERROR.getMsg());
+        return new Result<>(SystemErrorCodeEnum.PARAM_ERROR.getCode(), SystemErrorCodeEnum.PARAM_ERROR.getMsg());
     }
 }

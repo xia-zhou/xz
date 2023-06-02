@@ -1,7 +1,7 @@
 package com.cydeer.common.util.log;
 
 import com.cydeer.common.util.AssertUtils;
-import com.cydeer.common.util.constant.CommonErrorCode;
+import com.cydeer.common.util.constant.SystemErrorCodeEnum;
 
 /**
  * @author song.z
@@ -36,8 +36,8 @@ public class LogRmsKey {
      * @return 封装好的rmsKey信息
      */
     public static LogRmsKey of(RmsKeyFormat keyFormat, Object... args) {
-        AssertUtils.isNotNull(keyFormat, CommonErrorCode.PARAM_ERROR);
-        AssertUtils.hasText(keyFormat.getFormat(), CommonErrorCode.PARAM_ERROR);
+        AssertUtils.isNotNull(keyFormat, SystemErrorCodeEnum.PARAM_ERROR);
+        AssertUtils.hasText(keyFormat.getFormat(), SystemErrorCodeEnum.PARAM_ERROR);
         return new LogRmsKey(keyFormat, args);
     }
 
